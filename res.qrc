@@ -1,0 +1,37 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Image/t7.jpg</file>
+        <file>Image/t6.jpg</file>
+        <file>Image/t5.jpg</file>
+        <file>Image/t4.jpg</file>
+        <file>Image/t3.jpg</file>
+        <file>Image/t2.jpg</file>
+        <file>Image/t1.jpg</file>
+        <file>Image/m5.jpg</file>
+        <file>Image/m4.jpg</file>
+        <file>Image/m3.jpg</file>
+        <file>Image/m2.jpg</file>
+        <file>Image/m1.jpg</file>
+        <file>modules/se/qt/toolBar/Image/Open.png</file>
+    </qresource>
+    <qresource prefix="/icon">
+        <file>modules/se/qt/toolBar/Icon/zoom.svg</file>
+        <file>modules/se/qt/toolBar/Icon/word.svg</file>
+        <file>modules/se/qt/toolBar/Icon/tailor.svg</file>
+        <file>modules/se/qt/toolBar/Icon/straw.svg</file>
+        <file>modules/se/qt/toolBar/Icon/pathChoice.svg</file>
+        <file>modules/se/qt/toolBar/Icon/move.svg</file>
+        <file>modules/se/qt/toolBar/Icon/Matrix.svg</file>
+        <file>modules/se/qt/toolBar/Icon/lasso.svg</file>
+        <file>modules/se/qt/toolBar/Icon/imitation.svg</file>
+        <file>modules/se/qt/toolBar/Icon/Grip.svg</file>
+        <file>modules/se/qt/toolBar/Icon/frame.svg</file>
+        <file>modules/se/qt/toolBar/Icon/eraser.svg</file>
+        <file>modules/se/qt/toolBar/Icon/choose.svg</file>
+        <file>modules/se/qt/toolBar/Icon/brush.svg</file>
+        <file>modules/se/qt/toolBar/Icon/box.svg</file>
+        <file>modules/se/qt/toolBar/Icon/文字居左.svg</file>
+        <file>modules/se/qt/toolBar/Icon/文字居中对齐.svg</file>
+        <file>modules/se/qt/toolBar/Icon/文字居右.svg</file>
+    </qresource>
+</RCC>
