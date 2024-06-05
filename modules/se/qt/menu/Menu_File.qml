@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Dialogs
 import ImageLoader
+import com.activectrl 1.0
 
 Menu
 {
@@ -16,18 +16,7 @@ Menu
         sequence: "Ctrl+N"
         onTriggered:
         {
-            fileDialog.open()
-        }
-        FileDialog {
-            id: fileDialog
-            nameFilters: ["Images files (*.png *.jpg)"]
 
-            onAccepted: {
-                var imageUrl = fileDialog.selectedFile.toString()
-                var fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1) // 获取文件名
-
-                sharePage.append({ pageName: fileName,pixUrl_yuan: imageUrl})
-            }
         }
     }
 
@@ -37,7 +26,8 @@ Menu
         sequence: "Ctrl+O"
         onTriggered:
         {
-            console.log("打开")
+            ActiveCtrl.open()
+            // fileDialog.open()
         }
     }
 

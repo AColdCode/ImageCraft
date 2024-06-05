@@ -19,7 +19,7 @@ ApplicationWindow
     {
         width: parent.width
         id: psMenu
-        sharePage: l.sharePage
+        sharePage: tag.sharePage
     }
 
     header: PsToolBar
@@ -28,14 +28,21 @@ ApplicationWindow
         width: parent.width
     }
 
+    DialogBox   //管理弹出对话框
+    {
+        id: dialogBox
+        objectName: "dialogBox"
+        sharePage: tag.sharePage
+    }
+
     //Content Area
     Row
     {
         width: parent.width
         height: parent.height
-        LCenter
+        ImageTag
         {
-            id: l
+            id: tag
         }
 
         Rectangle
@@ -48,8 +55,8 @@ ApplicationWindow
 
         RCenter
         {
-            sharePage: l.sharePage
-            tabBar_currentIndex: l.shareTab.currentIndex
+            sharePage: tag.sharePage
+            tabBar_currentIndex: tag.shareTab.currentIndex
         }
     }
 

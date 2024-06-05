@@ -14,15 +14,13 @@ Image
         id: editor1
     }
 
-    source: "data:image/png;base64," + editor.imageToBase64()
-
     Connections
     {
         target: editor
         function onImageChanged()
         {
-            imageView.source = "data:image/png;base64," + editor.imageToBase64()
+            imageProvider.setImage(editor.image)
+            imageView.source = "image://editorimage/" + Math.floor(Math.random() * 1000000000000)
         }
     }
 }
-

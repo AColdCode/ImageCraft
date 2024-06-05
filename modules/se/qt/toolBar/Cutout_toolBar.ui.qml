@@ -20,7 +20,7 @@ Item {
             id: logo1
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo1"
@@ -36,7 +36,7 @@ Item {
             id: logo2
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo2"
@@ -48,7 +48,7 @@ Item {
             id: logo3
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo3"
@@ -60,7 +60,7 @@ Item {
             id: logo4
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo4"
@@ -72,7 +72,7 @@ Item {
             id: logo5
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo5"
@@ -114,7 +114,7 @@ Item {
             id: logo6
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo6"
@@ -126,7 +126,7 @@ Item {
             id: logo7
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo7"
@@ -138,7 +138,7 @@ Item {
             id: logo8
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo8"
@@ -150,7 +150,7 @@ Item {
             id: logo9
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo9"
@@ -168,7 +168,7 @@ Item {
             id: logo10
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo10"
@@ -180,7 +180,7 @@ Item {
             id: logo11
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo11"
@@ -192,7 +192,7 @@ Item {
             id: logo12
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo12"
@@ -204,7 +204,7 @@ Item {
             id: logo13
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo13"
@@ -241,7 +241,7 @@ Item {
             id: logo14
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo14"

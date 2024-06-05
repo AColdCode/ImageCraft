@@ -67,7 +67,7 @@ Item {
             Layout.preferredWidth:parent.height*3
 
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "left"
@@ -79,7 +79,7 @@ Item {
             id: locatecenter
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "center"
@@ -91,7 +91,7 @@ Item {
             id: right11
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "right"
@@ -107,7 +107,7 @@ Item {
             id: toppp
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "top"
@@ -120,7 +120,7 @@ Item {
             id: acrosscenter
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "center"
@@ -133,7 +133,7 @@ Item {
             id: bottompading
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "bottom"
@@ -145,7 +145,7 @@ Item {
             id: verticalcenter
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "verticalcenter"

@@ -37,7 +37,7 @@ Item {
             id: logo2
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo2"
@@ -50,7 +50,7 @@ Item {
             Layout.preferredWidth:parent.height*3
 
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo3"
@@ -62,7 +62,7 @@ Item {
             id: logo4
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo4"
@@ -74,7 +74,7 @@ Item {
             id: logo5
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
             }
             text: "logo5"

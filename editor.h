@@ -1,6 +1,5 @@
 #pragma once
 
-#include <QBuffer>
 #include <QImage>
 #include <QQmlEngine>
 
@@ -14,10 +13,11 @@ class Editor : public QObject
 public:
     explicit Editor(QObject *parent = nullptr);
 
+    ~Editor();
+
     QImage image() const;
-    void setImage(QImage newImage);
+    Q_INVOKABLE void setImage(QImage newImage);
     Q_INVOKABLE void openImage(const QString &path);
-    Q_INVOKABLE QString imageToBase64() const;
 
     QString path() const;
     void setPath(const QString &newPath);

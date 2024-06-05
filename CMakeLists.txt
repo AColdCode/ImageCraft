@@ -62,7 +62,10 @@ qt_add_qml_module(
   editor.h
   editor.cpp
   QML_FILES EditorView.qml
-  SOURCES activectrl.h activectrl.cpp)
+  SOURCES activectrl.h activectrl.cpp
+  SOURCES imageprovider.h imageprovider.cpp
+  QML_FILES DialogBox.qml
+  QML_FILES ImageTag.qml)
 
 target_compile_features(appImageLoader PRIVATE cxx_std_20)
 

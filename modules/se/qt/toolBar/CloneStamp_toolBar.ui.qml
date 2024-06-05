@@ -103,7 +103,7 @@ Item {
             text:"角度:"
             Image {
                 id: angle
-                source: " "
+                source: ""
             }
         }
 

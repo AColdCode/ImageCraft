@@ -1,11 +1,16 @@
 #include "editor.h"
 #include <QBuffer>
 #include <QImageReader>
+#include "imageprovider.h"
 
 Editor::Editor(QObject *parent)
     : QObject{parent}
 {
-    // m_image = new QImage(this);
+}
+
+Editor::~Editor()
+{
+    qDebug() << "an editor destroyed!!";
 }
 
 QImage Editor::image() const
@@ -26,15 +31,6 @@ void Editor::openImage(const QString &path)
     m_path = QString(QUrl(path).toLocalFile());
     m_image.load(m_path);
     emit imageChanged();
-}
-
-QString Editor::imageToBase64() const
-{
-    QByteArray byteArray;
-    QBuffer buffer(&byteArray);
-    buffer.open(QIODevice::WriteOnly);
-    m_image.save(&buffer, "PNG");
-    return QString::fromLatin1(byteArray.toBase64().data());
 }
 
 QString Editor::path() const

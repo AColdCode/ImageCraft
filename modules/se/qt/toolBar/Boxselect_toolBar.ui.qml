@@ -32,7 +32,7 @@ Item {
             Layout.preferredWidth:parent.height*3
 
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
 
             }
@@ -46,7 +46,7 @@ Item {
             Layout.preferredWidth:parent.height*3
 
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
 
             }
@@ -60,7 +60,7 @@ Item {
             Layout.preferredWidth:parent.height*3
 
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
 
             }
@@ -74,7 +74,7 @@ Item {
             Layout.preferredWidth:parent.height*3
 
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
 
             }
@@ -150,7 +150,7 @@ Item {
             id: logo6
             Layout.preferredWidth:parent.height*3
             Image {
-                source: "image path"
+                source: ""
                 anchors.fill: parent
 
             }

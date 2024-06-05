@@ -1,8 +1,8 @@
-import QtQuick
-import QtQuick.Controls
-import QtQuick.Layouts
-Item
-{
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
+
+Item {
     width: parent.width / 3
     height: parent.height
     property var sharePage
@@ -17,24 +17,26 @@ Item
         Repeater {
             model: sharePage
 
-            Rectangle
-            {
-                color: "black"
-                anchors.centerIn: parent
+            Item {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
-                Layout.maximumWidth: parent.width / 5 * 4
-                Layout.minimumWidth: parent.width / 5 * 4
-                Layout.maximumHeight: parent.height / 5 * 4
-                Layout.minimumHeight: parent.height / 5 * 4
-                clip: true
-                Image
-                {
-                    id: homeTab
-                    source: pixUrl_yuan
-                    width: parent.width - 50
-                    height: parent.height - 50
-                    fillMode: Image.PreserveAspectFit
+                Rectangle {
+                    color: "black"
+                    width: parent.width / 5 * 4
+                    height: parent.height / 5 * 4
                     anchors.centerIn: parent
+                    clip: true
+
+                    Image {
+                        id: homeTab
+                        source: pixUrl_yuan
+                        width: parent.width - 50
+                        height: parent.height - 50
+                        fillMode: Image.PreserveAspectFit
+                        anchors.centerIn: parent
+                    }
                 }
             }
         }

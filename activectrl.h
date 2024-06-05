@@ -2,17 +2,40 @@
 
 #include <QObject>
 #include <QQmlEngine>
+#include "editor.h"
 
 class ActiveCtrl : public QObject
 {
     Q_OBJECT
-    QML_ELEMENT
+
+    Q_PROPERTY(QObject* dialogBox READ dialogBox WRITE setDialogBox NOTIFY dialogBoxChanged FINAL)
+    Q_PROPERTY(Editor* currentEditor READ currentEditor WRITE setCurrentEditor NOTIFY
+                   currentEditorChanged FINAL)
 public:
-    explicit ActiveCtrl(QObject *parent = nullptr);
+    static ActiveCtrl* singleton();
 
-    static ActiveCtrl *singleton();
+    ~ActiveCtrl();
 
-    void newFile();
+    Q_INVOKABLE void newFile();
+    Q_INVOKABLE void open();
+
+    QObject* dialogBox() const;
+    void setDialogBox(QObject* newDialogBox);
+
+    Editor* currentEditor() const;
+    void setCurrentEditor(Editor* newCurrentEditor);
 
 signals:
+
+    void dialogBoxChanged();
+
+    void currentEditorChanged();
+
+private:
+    explicit ActiveCtrl(QObject* parent = nullptr);
+
+    static ActiveCtrl* m_instance;
+
+    Editor* m_currentEditor = nullptr;
+    QObject* m_dialogBox = nullptr;
 };
