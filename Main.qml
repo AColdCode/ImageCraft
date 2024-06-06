@@ -7,13 +7,13 @@ import "modules/se/qt/toolBar"
 
 ApplicationWindow
 {
-    width: 2000
-    height: 1000
+    width: 1000
+    height: 500
     visible: true
     title: qsTr("PS")
     color: "white"
     minimumWidth: 800  // 设置最小宽度为800像素
-    minimumHeight:600
+    minimumHeight: 400
 
     menuBar: PsMenu
     {

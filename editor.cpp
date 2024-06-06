@@ -29,7 +29,12 @@ void Editor::setImage(QImage newImage)
 void Editor::openImage(const QString &path)
 {
     m_path = QString(QUrl(path).toLocalFile());
-    m_image.load(m_path);
+    if (m_path.isEmpty()) {
+        m_image.load(QString(":" + path));
+    } else {
+        m_image.load(m_path);
+    }
+
     emit imageChanged();
 }
 

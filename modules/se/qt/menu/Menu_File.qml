@@ -16,7 +16,7 @@ Menu
         sequence: "Ctrl+N"
         onTriggered:
         {
-
+            ActiveCtrl.newImage()
         }
     }
 
@@ -87,7 +87,7 @@ Menu
         sequence: "Ctrl+S"
         onTriggered:
         {
-            console.log("保存")
+            ActiveCtrl.save()
         }
     }
 

@@ -13,6 +13,9 @@
         <file>Image/m2.jpg</file>
         <file>Image/m1.jpg</file>
         <file>modules/se/qt/toolBar/Image/Open.png</file>
+        <file>Image/new1600x900.png</file>
+        <file>Image/new900x600.png</file>
+        <file>Image/new600x900.png</file>
     </qresource>
     <qresource prefix="/icon">
         <file>modules/se/qt/toolBar/Icon/zoom.svg</file>
@@ -33,5 +36,7 @@
         <file>modules/se/qt/toolBar/Icon/文字居左.svg</file>
         <file>modules/se/qt/toolBar/Icon/文字居中对齐.svg</file>
         <file>modules/se/qt/toolBar/Icon/文字居右.svg</file>
+        <file>icon/hide.svg</file>
+        <file>icon/display.svg</file>
     </qresource>
 </RCC>

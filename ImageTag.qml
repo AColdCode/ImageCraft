@@ -65,9 +65,12 @@ Item
                     height: 15
                     radius: 15
                     color: isHoverd ?  "lightcoral" : "transparent"
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.right: parent.right
-                    anchors.rightMargin: 3
+                    anchors
+                    {
+                        verticalCenter: parent.verticalCenter
+                        right: parent.right
+                        rightMargin: 3
+                    }
                     Rectangle
                     {
                         anchors.centerIn: parent
@@ -134,8 +137,8 @@ Item
     }
 
 
-    onCurrentEditorChanged:
-    {
-        ActiveCtrl.currentEditor = currentEditor
-    }
+    // onCurrentEditorChanged:
+    // {
+    //     ActiveCtrl.currentEditor = currentEditor
+    // }
 }

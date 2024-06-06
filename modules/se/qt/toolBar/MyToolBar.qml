@@ -100,19 +100,68 @@ Item
         property bool isPressed: false
         color: "grey"
         width: listView.width
-        height: 775
+        height: Window.height / 4 * 3 + 20
         y: topToolBar.height + menuBar.height - 20
         radius: 10
         clip: true
+        Rectangle
+        {
+            id: moveAbleArea
+            color: "grey"
+            width: listView.width
+            height:20
+            radius: width
+
+            TapHandler
+            {
+                onPressedChanged:
+                {
+                    leftToolBar.isPressed = pressed || leftToolBarDrag.active
+                }
+            }
+
+            HoverHandler
+            {
+                cursorShape: Qt.OpenHandCursor
+            }
+
+            DragHandler
+            {
+                id: leftToolBarDrag
+                target: leftToolBar
+                xAxis
+                {
+                    minimum: -leftToolBar.width
+                    maximum: toolBar.width
+                }
+                yAxis.minimum: 0
+                onActiveChanged:
+                {
+                    leftToolBar.isPressed = active
+                    if(!active)
+                    {
+                        if(leftToolBar.rightAble)
+                        {
+                            rightHide.start()
+                        }else if(leftToolBar.leftAble)
+                        {
+                            leftHide.start()
+                        }
+                    }
+                }
+                cursorShape: Qt.DragMoveCursor
+            }
+        }
         ListView
         {
             id: listView
             x: 8
             y: 53
             width: 160
-            height: 825
-            anchors.top: parent.top
-            property string thisName: "文字"
+            height: Math.min(parent.height - 30, Window.height - parent.y - 30)
+            anchors.top: moveAbleArea.bottom
+            // property string thisName: "文字"
+            clip: true
             model: ListModel
             {
                 ListElement
@@ -206,78 +255,6 @@ Item
                 }
             }
             delegate: listViewDelegate
-
-            header: Rectangle{
-                color: Qt.rgba(51/255, 51/255, 51/255, 0)
-                width: parent.width
-                height:20
-                radius: width
-
-                TapHandler
-                {
-                    onPressedChanged:
-                    {
-                        leftToolBar.isPressed = pressed || leftToolBarDrag.active
-                    }
-                }
-
-                HoverHandler
-                {
-                    cursorShape: Qt.OpenHandCursor
-                }
-
-                DragHandler
-                {
-                    id: leftToolBarDrag
-                    target: leftToolBar
-                    xAxis
-                    {
-                        minimum: -leftToolBar.width
-                        maximum: toolBar.width
-                    }
-                    yAxis.minimum: 0
-                    onActiveChanged:
-                    {
-                        leftToolBar.isPressed = active
-                        if(!active)
-                        {
-                            if(leftToolBar.rightAble)
-                            {
-                                rightHide.start()
-                            }else if(leftToolBar.leftAble)
-                            {
-                                leftHide.start()
-                            }
-                        }
-                    }
-                    cursorShape: Qt.DragMoveCursor
-                }
-
-                // MouseArea
-                // {
-                //     anchors.fill: parent
-                //     drag.target: leftToolBar
-                //     drag.axis: Drag.XAxis | Drag.YAxis
-                //     drag.minimumX: -leftToolBar.width
-                //     drag.maximumX: toolBar.width
-                //     drag.minimumY: 0
-                //     onReleased:
-                //     {
-                //         if(leftToolBar.rightAble)
-                //         {
-                //             rightHide.start()
-                //         }else if(leftToolBar.leftAble)
-                //         {
-                //             leftHide.start()
-                //         }
-                //         leftToolBar.isPressed = false
-                //     }
-                //     onPressed:
-                //     {
-                //         leftToolBar.isPressed = true
-                //     }
-                // }
-            }
         }
 
         Component
@@ -286,7 +263,7 @@ Item
             Rectangle
             {
                 property bool isHoverd: listViewHover.hovered
-                property bool isThisBtn: listView.thisName === name  //当前按钮是否被选中
+                property bool isThisBtn: listView.currentIndex === index  //当前按钮是否被选中
                 width: 145
                 height: 50
                 radius: 50
@@ -297,7 +274,8 @@ Item
                     height: parent.height
                     radius: parent.radius
                     color: Qt.rgba(0, 191/255, 1, 1)
-                    Behavior on width {
+                    Behavior on width
+                    {
                         NumberAnimation
                         {
                             duration: 200
@@ -340,7 +318,7 @@ Item
                     onTapped:
                     {
                         listView.currentIndex = index
-                        listView.thisName = name
+                        // listView.thisName = name
                     }
                 }
 
@@ -371,6 +349,12 @@ Item
             to: -leftToolBar.width
             duration: 200
             easing.type: Easing.InOutQuad
+        }
+
+        onHeightChanged:
+        {
+            x = 0
+            y = topToolBar.height + menuBar.height - 20
         }
     }
 
@@ -411,7 +395,7 @@ Item
     {
         id: rightTag
         property bool isHoverd: false
-        width: leftToolBar.x === toolBar.width ? 80 : 0
+        width: leftToolBar.x >= toolBar.width ? 80 : 0
         height: 40
         radius: 40
         x: toolBar.width - width / 2

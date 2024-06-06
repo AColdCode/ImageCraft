@@ -1,11 +1,37 @@
 #include "activectrl.h"
-#include <QDebug>
+#include <QQuickItemGrabResult>
 
 ActiveCtrl *ActiveCtrl::m_instance = nullptr;
 
-ActiveCtrl::ActiveCtrl(QObject* parent)
+ActiveCtrl::ActiveCtrl(QObject *parent)
     : QObject{parent}
 {}
+
+QObject *ActiveCtrl::currentLayer() const
+{
+    return m_currentLayer;
+}
+
+void ActiveCtrl::setCurrentLayer(QObject *newCurrentLayer)
+{
+    if (m_currentLayer == newCurrentLayer)
+        return;
+    m_currentLayer = newCurrentLayer;
+    emit currentLayerChanged();
+}
+
+QObject *ActiveCtrl::newDialogBox() const
+{
+    return m_newDialogBox;
+}
+
+void ActiveCtrl::setNewDialogBox(QObject *newNewDialogBox)
+{
+    if (m_newDialogBox == newNewDialogBox)
+        return;
+    m_newDialogBox = newNewDialogBox;
+    emit newDialogBoxChanged();
+}
 
 Editor *ActiveCtrl::currentEditor() const
 {
@@ -33,7 +59,7 @@ void ActiveCtrl::setDialogBox(QObject *newDialogBox)
     emit dialogBoxChanged();
 }
 
-ActiveCtrl* ActiveCtrl::singleton()
+ActiveCtrl *ActiveCtrl::singleton()
 {
     if (!m_instance) {
         m_instance = new ActiveCtrl();
@@ -49,9 +75,33 @@ ActiveCtrl::~ActiveCtrl()
     }
 }
 
-void ActiveCtrl::newFile() {}
-
 void ActiveCtrl::open()
 {
     m_dialogBox->metaObject()->invokeMethod(m_dialogBox, "open", Qt::AutoConnection);
+}
+
+void ActiveCtrl::newImage()
+{
+    m_newDialogBox->metaObject()->invokeMethod(m_newDialogBox, "open", Qt::AutoConnection);
+}
+
+void ActiveCtrl::save()
+{
+    QQuickItem *quickItem = qobject_cast<QQuickItem *>(m_currentLayer);
+    if (quickItem) {
+        QSharedPointer<QQuickItemGrabResult> grabResult = quickItem->grabToImage();
+        QObject::connect(grabResult.data(), &QQuickItemGrabResult::ready, [=]() {
+            QImage image = grabResult->image();
+            if (image.save("/run/media/root/Study/Images/test.png")) {
+                qDebug() << "Save success to: "
+                         << "/run/media/root/Study/Images/test.png";
+            } else {
+                qDebug() << "Save failure!!";
+            }
+        });
+    } else {
+        qDebug() << m_currentLayer;
+        qDebug() << quickItem;
+        qDebug() << "null";
+    }
 }
