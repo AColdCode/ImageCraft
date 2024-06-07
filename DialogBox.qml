@@ -8,10 +8,12 @@ Item
     property var sharePage
     property FileDialog openFileDialog: null
     property Dialog newImageDialog: null
+    property FileDialog savePathDialog: null
+
     openFileDialog: FileDialog
     {
         id: openFileDialog_
-        title: "Open File"
+        title: qsTr("Open File")
         nameFilters: ["Images files (*.png *.jpg)"]
 
         onAccepted:
@@ -85,10 +87,25 @@ Item
         }
     }
 
+    savePathDialog: FileDialog
+    {
+        id: savePathDialog
+        title: qsTr("Select Save Path")
+        nameFilters: ["Images files (*.png *.jpg)"]
+        fileMode: FileDialog.SaveFile
+
+        onAccepted:
+        {
+            var savePath = savePathDialog.selectedFile.toString()
+            ActiveCtrl.savePath = savePath.substring(7)
+            ActiveCtrl.save()
+        }
+    }
 
     Component.onCompleted:
     {
         ActiveCtrl.dialogBox = openFileDialog
         ActiveCtrl.newDialogBox = newImageDialog
+        ActiveCtrl.savePathDialod = savePathDialog
     }
 }

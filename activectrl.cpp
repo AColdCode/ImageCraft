@@ -7,6 +7,32 @@ ActiveCtrl::ActiveCtrl(QObject *parent)
     : QObject{parent}
 {}
 
+QString ActiveCtrl::savePath() const
+{
+    return m_savePath;
+}
+
+void ActiveCtrl::setSavePath(const QString &newSavePath)
+{
+    if (m_savePath == newSavePath)
+        return;
+    m_savePath = newSavePath;
+    emit savePathChanged();
+}
+
+QObject *ActiveCtrl::savePathDialod() const
+{
+    return m_savePathDialod;
+}
+
+void ActiveCtrl::setSavePathDialod(QObject *newSavePathDialod)
+{
+    if (m_savePathDialod == newSavePathDialod)
+        return;
+    m_savePathDialod = newSavePathDialod;
+    emit savePathDialodChanged();
+}
+
 QObject *ActiveCtrl::currentLayer() const
 {
     return m_currentLayer;
@@ -87,21 +113,33 @@ void ActiveCtrl::newImage()
 
 void ActiveCtrl::save()
 {
-    QQuickItem *quickItem = qobject_cast<QQuickItem *>(m_currentLayer);
-    if (quickItem) {
-        QSharedPointer<QQuickItemGrabResult> grabResult = quickItem->grabToImage();
-        QObject::connect(grabResult.data(), &QQuickItemGrabResult::ready, [=]() {
-            QImage image = grabResult->image();
-            if (image.save("/run/media/root/Study/Images/test.png")) {
-                qDebug() << "Save success to: "
-                         << "/run/media/root/Study/Images/test.png";
-            } else {
-                qDebug() << "Save failure!!";
-            }
-        });
-    } else {
-        qDebug() << m_currentLayer;
-        qDebug() << quickItem;
-        qDebug() << "null";
+    if (!m_currentLayer) {
+        return;
     }
+    if (m_savePath.isEmpty()) {
+        saveAs();
+    } else {
+        QQuickItem *quickItem = qobject_cast<QQuickItem *>(m_currentLayer);
+        if (quickItem) {
+            QSharedPointer<QQuickItemGrabResult> grabResult = quickItem->grabToImage();
+            QObject::connect(grabResult.data(), &QQuickItemGrabResult::ready, [=, this]() {
+                QImage image = grabResult->image();
+                if (image.save(m_savePath)) {
+                    qDebug() << "Save success to: " << m_savePath;
+                } else {
+                    qDebug() << "Save failure!!";
+                }
+            });
+        } else {
+            qDebug() << m_currentEditor << " is not a QQuickItem type!!";
+        }
+    }
+}
+
+void ActiveCtrl::saveAs()
+{
+    if (!m_currentLayer) {
+        return;
+    }
+    m_savePathDialod->metaObject()->invokeMethod(m_savePathDialod, "open", Qt::DirectConnection);
 }

@@ -97,7 +97,7 @@ Menu
         sequence: "Shift+Ctrl+S"
         onTriggered:
         {
-            console.log("保存为")
+            ActiveCtrl.saveAs()
         }
     }
 

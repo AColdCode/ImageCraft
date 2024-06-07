@@ -18,84 +18,75 @@ StackLayout
 
         Item
         {
+            id: tabContent
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            property ListModel layerModel: rect.layerListModel
-            property Repeater layers: rect.layers
+            property ListModel layerModel: layer.layerListModel
+            property Repeater layers: layer.layers
             property Rectangle thelayer: layer
+            property string filePath: layers.count ? layers.itemAt(0).editor.path : ""
+
             Rectangle
             {
-                id: rect
-                property Repeater layers: layer.layers
+                id: layer
+                height: !layers.count ? 100 : ((layers.itemAt(0).sourceSize.height) / (layers.itemAt(0).sourceSize.width) >= (parent.height / parent.width)) ? layers.itemAt(0).height : (layers.itemAt(0).sourceSize.height * layers.itemAt(0).width / layers.itemAt(0).sourceSize.width)
+                width: !layers.count ? 100 : ((layers.itemAt(0).sourceSize.height) / (layers.itemAt(0).sourceSize.width) <= (parent.height / parent.width)) ? layers.itemAt(0).width : (layers.itemAt(0).sourceSize.width * layers.itemAt(0).height / layers.itemAt(0).sourceSize.height)
                 property ListModel layerListModel: ListModel {}
-                color: "black"
                 anchors.centerIn: parent
-                height: parent.height / 5 * 4
-                width: parent.width / 5 * 4
+                color: !layers.count ?  "black" : (layers.itemAt(0).editor.path) ? "transparent" : "black"
                 clip: true
-                Rectangle
+                property Repeater layers: layers_
+                Repeater
                 {
-                    id: layer
-                    anchors.fill: parent
-                    color: "transparent"
-                    property Repeater layers: layers_
-                    Repeater
+                    id: layers_
+                    model: layer.layerListModel
+                    EditorView
                     {
-                        id: layers_
-                        model: rect.layerListModel
-                        EditorView
+                        id: editorView
+
+                        x: parent.width === width ? 0 : - (width - parent.width) / 2
+                        y: parent.height === height ? 0 : - (height - parent.height) / 2
+
+                        width: tabContent.width / 5 * 4
+                        height: tabContent.height / 5 * 4
+
+                        Component.onCompleted:
                         {
-                            id: editorView
-                            anchors.centerIn: parent
-                            width: parent.width - 50
-                            height: parent.height - 50
-                            Component.onCompleted:
+                            editor.openImage(pixUrl)
+                            source = "image://editorimage/" + Math.floor(Math.random() * 1000000000000)
+                        }
+                        TapHandler
+                        {
+                            onTapped:
                             {
-                                editor.openImage(pixUrl)
-                                source = "image://editorimage/" + Math.floor(Math.random() * 1000000000000)
-                            }
-                            TapHandler
-                            {
-                                onTapped:
-                                {
-                                    ActiveCtrl.currentEditor = itemAt(index) as Editor
-                                }
+                                ActiveCtrl.currentEditor = itemAt(index) as Editor
                             }
                         }
                     }
                 }
-                Component.onCompleted:
+            }
+            Component.onCompleted:
+            {
+                layerModel.append({pixUrl: pixUrl_yuan})
+            }
+
+            DropArea
+            {
+                anchors.fill: parent
+                onDropped: function(dragEvent)
                 {
-                    layerListModel.append({pixUrl: pixUrl_yuan})
-                    // layerListModel.append({pixUrl: "file:///run/media/root/Study/Images/t1.jpg"})
-                    // layerListModel.append({pixUrl: "file:///run/media/root/Study/Images/t2.jpg"})
-                    // layerListModel.append({pixUrl: "file:///run/media/root/Study/Images/t3.jpg"})
-                    // layerListModel.append({pixUrl: "file:///run/media/root/Study/Images/t4.jpg"})
-                    // layerListModel.append({pixUrl: "file:///run/media/root/Study/Images/t5.jpg"})
-                    // layerListModel.append({pixUrl: "file:///run/media/root/Study/Images/t6.jpg"})
-                    // layerListModel.append({pixUrl: "file:///run/media/root/Study/Images/t7.jpg"})
-                    // layerListModel.append({pixUrl: "file:///run/media/root/Study/Images/m1.jpg"})
+                    handleDrop(dragEvent)
                 }
 
-                DropArea
+                function handleDrop(dragEvent)
                 {
-                    anchors.fill: parent
-                    onDropped: function(dragEvent)
+                    if (dragEvent.hasText)
                     {
-                        handleDrop(dragEvent)
-                    }
-
-                    function handleDrop(dragEvent)
-                    {
-                        if (dragEvent.hasText)
-                        {
-                            var url = dragEvent.text;
-                            parent.layerListModel.append({pixUrl: url});
-                        }
+                        var url = dragEvent.text;
+                        parent.layerModel.append({pixUrl: url});
                     }
                 }
-
             }
         }
     }
@@ -103,6 +94,11 @@ StackLayout
     {
         var layer_ = itemAt(currentIndex).thelayer
         ActiveCtrl.currentLayer = layer_
+        Qt.callLater(function()
+        {
+            var filePath = itemAt(currentIndex).filePath
+            ActiveCtrl.savePath = filePath
+        });
     }
 }
 
