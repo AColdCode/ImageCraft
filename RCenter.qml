@@ -5,8 +5,8 @@ import QtQuick.Layouts 1.15
 Item {
     width: parent.width / 3
     height: parent.height
-    property var sharePage
-    property var tabBar_currentIndex
+    required property ListModel sharePage
+    required property int tabBar_currentIndex
 
     StackLayout {
         id: rightLayout
@@ -81,6 +81,7 @@ Item {
                                     onTapped:
                                     {
                                         theStackL.layers.itemAt(index).visible = !theStackL.layers.itemAt(index).visible
+                                        theStackL.layers.itemAt(index).modified()
                                         isShow = !isShow
                                     }
                                 }

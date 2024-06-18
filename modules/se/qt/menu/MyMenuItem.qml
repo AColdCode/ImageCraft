@@ -51,7 +51,7 @@ MenuItem
         {
             id: se
             text: item.sequence
-            color: "white"
+            color: "black"
             rightPadding: 20
             verticalAlignment: Text.AlignVCenter
         }

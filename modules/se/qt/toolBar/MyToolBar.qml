@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
+import ImageCraft 1.0
 
 Item
 {
@@ -318,6 +319,7 @@ Item
                     onTapped:
                     {
                         listView.currentIndex = index
+                        ToolCtrl.selectedTool = name
                         // listView.thisName = name
                     }
                 }

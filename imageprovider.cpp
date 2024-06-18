@@ -16,10 +16,10 @@ ImageProvider *ImageProvider::instance()
 
 ImageProvider::~ImageProvider()
 {
-    if (m_instance) {
-        delete m_instance;
-        m_instance = nullptr;
-    }
+    // if (m_instance) {
+    //     delete m_instance;
+    //     m_instance = nullptr;
+    // }
 }
 
 QImage ImageProvider::requestImage(const QString &id, QSize *size, const QSize &requestedSize)

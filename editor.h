@@ -19,6 +19,8 @@ public:
     Q_INVOKABLE void setImage(QImage newImage);
     Q_INVOKABLE void openImage(const QString &path);
 
+    // Q_INVOKABLE void moveImage(int dx, int dy);
+
     QString path() const;
     void setPath(const QString &newPath);
 
@@ -31,4 +33,5 @@ signals:
 private:
     QImage m_image;
     QString m_path;
+    QPoint m_position;
 };

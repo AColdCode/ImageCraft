@@ -13,8 +13,8 @@
         <file>Image/m2.jpg</file>
         <file>Image/m1.jpg</file>
         <file>modules/se/qt/toolBar/Image/Open.png</file>
-        <file>Image/new1600x900.png</file>
         <file>Image/new900x600.png</file>
+        <file>Image/new1600x900.png</file>
         <file>Image/new600x900.png</file>
     </qresource>
     <qresource prefix="/icon">

@@ -5,9 +5,12 @@ import QtQuick.Dialogs
 MenuBar
 {
     id: menuBar
-    property var sharePage
+    required property ListModel sharePage
     width: parent.width
-    Menu_File{}
+    Menu_File
+    {
+        sharePage: menuBar.sharePage
+    }
     Menu_Edit{}
     Menu_Graphics{}
     Menu_Layer {}

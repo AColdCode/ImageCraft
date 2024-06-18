@@ -1,14 +1,16 @@
 import QtQuick
 import QtQuick.Dialogs
 import QtQuick.Controls
-import com.activectrl 1.0
+import ImageCraft 1.0
 
 Item
 {
-    property var sharePage
+    required property ListModel sharePage
+    required property int tabBar_currentIndex
     property FileDialog openFileDialog: null
     property Dialog newImageDialog: null
     property FileDialog savePathDialog: null
+    property MessageDialog failToSave: null
 
     openFileDialog: FileDialog
     {
@@ -16,13 +18,13 @@ Item
         title: qsTr("Open File")
         nameFilters: ["Images files (*.png *.jpg)"]
 
-        onAccepted:
-        {
-            var imageUrl = openFileDialog_.selectedFile.toString()
-            var fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1) // 获取文件名
-
-            sharePage.append({ pageName: fileName,pixUrl_yuan: imageUrl})
-        }
+        // onAccepted:
+        // {
+        //     var imageUrl = openFileDialog_.selectedFile.toString()
+        //     var fileName = imageUrl.substring(imageUrl.lastIndexOf("/") + 1) // 获取文件名
+        //     ActiveCtrl.addRecentFiles(imageUrl)
+        //     sharePage.append({ pageName: fileName,pixUrl_yuan: imageUrl})
+        // }
     }
 
 
@@ -97,15 +99,28 @@ Item
         onAccepted:
         {
             var savePath = savePathDialog.selectedFile.toString()
+            var fileName = savePath.substring(savePath.lastIndexOf("/") + 1) // 获取文件名
             ActiveCtrl.savePath = savePath.substring(7)
+            ActiveCtrl.currentLayer.isModified_ = true
             ActiveCtrl.save()
+            sharePage.setProperty(tabBar_currentIndex, "pageName", fileName)
+            sharePage.setProperty(tabBar_currentIndex, "pixUrl", savePath)
         }
+    }
+
+    failToSave: MessageDialog
+    {
+        id: failToSave
+        modality: Qt.WindowModal
+        buttons:MessageDialog.Ok
+        text:"Fail to save the image!"
     }
 
     Component.onCompleted:
     {
-        ActiveCtrl.dialogBox = openFileDialog
+        ActiveCtrl.openDialogBox = openFileDialog
         ActiveCtrl.newDialogBox = newImageDialog
         ActiveCtrl.savePathDialod = savePathDialog
+        ActiveCtrl.failToSave = failToSave
     }
 }

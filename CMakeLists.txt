@@ -14,7 +14,7 @@ qt_add_executable(appImageLoader main.cpp)
 qt_add_qml_module(
   appImageLoader
   URI
-  ImageLoader
+  ImageCraft
   VERSION
   1.0
   QML_FILES
@@ -61,11 +61,23 @@ qt_add_qml_module(
   SOURCES
   editor.h
   editor.cpp
-  QML_FILES EditorView.qml
-  SOURCES activectrl.h activectrl.cpp
-  SOURCES imageprovider.h imageprovider.cpp
-  QML_FILES DialogBox.qml
-  QML_FILES ImageTag.qml)
+  QML_FILES
+  EditorView.qml
+  SOURCES
+  activectrl.h
+  activectrl.cpp
+  SOURCES
+  imageprovider.h
+  imageprovider.cpp
+  QML_FILES
+  DialogBox.qml
+  QML_FILES
+  ImageTag.qml
+  SOURCES
+  toolctrl.h
+  toolctrl.cpp
+  QML_FILES
+)
 
 target_compile_features(appImageLoader PRIVATE cxx_std_20)
 
@@ -79,7 +91,12 @@ set_target_properties(
              MACOSX_BUNDLE TRUE
              WIN32_EXECUTABLE TRUE)
 
-target_link_libraries(appImageLoader PRIVATE Qt6::Quick)
+target_link_libraries(
+  appImageLoader
+  PRIVATE Qt6::Quick
+          # /usr/lib \                  # OpenCV的lib路径
+          opencv_core opencv_imgproc opencv_highgui opencv_imgcodecs)
+# 其他需要的OpenCV模块库)
 
 include(GNUInstallDirs)
 install(
@@ -87,6 +104,8 @@ install(
   BUNDLE DESTINATION .
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+include_directories(/usr/include/opencv4)
 
 # qt_add_executable(ImageLoader)  //Creates and finalizes an application target
 # of a platform-specific type. This command performs the following tasks: 1.

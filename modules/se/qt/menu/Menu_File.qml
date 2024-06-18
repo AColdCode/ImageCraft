@@ -1,14 +1,14 @@
 import QtQuick
 import QtQuick.Controls
-import ImageLoader
-import com.activectrl 1.0
+import QtCore
+import ImageCraft 1.0
 
 Menu
 {
     id: file
     width: 250
     title: qsTr("文件(&F)")
-
+    required property ListModel sharePage
 
     MyMenuItem
     {
@@ -27,7 +27,6 @@ Menu
         onTriggered:
         {
             ActiveCtrl.open()
-            // fileDialog.open()
         }
     }
 
@@ -43,7 +42,45 @@ Menu
 
     Menu
     {
+        id: recentFileMenu
+        width: 200
         title: qsTr("最近打开文件(&T)")
+        Repeater
+        {
+            model: ActiveCtrl.recentFiles
+            MyMenuItem
+            {
+                text: modelData
+                property ListModel sharePage: file.sharePage
+                onTriggered:
+                {
+                    var fileName = text.substring(text.lastIndexOf("/") + 1) // 获取文件名
+                    ActiveCtrl.addRecentFiles(text)
+                    sharePage.append({ pageName: fileName,pixUrl_yuan: text})
+                }
+
+                HoverHandler
+                {
+                    id: recentFileHover
+                }
+                Component.onCompleted:
+                {
+                    recentFileMenu.width = Math.max(text.length * 7 + 10 + height, recentFileMenu.width)
+                }
+
+                Image
+                {
+                    width: parent.height
+                    height: parent.height
+                    anchors.top: parent.top
+                    anchors.left: parent.right
+                    anchors.leftMargin: - width
+                    source: text
+                    fillMode: Image.PreserveAspectFit
+                    visible: recentFileHover.hovered
+                }
+            }
+        }
     }
 
 
@@ -57,7 +94,7 @@ Menu
         sequence: "Ctrl+W"
         onTriggered:
         {
-            console.log("关闭")
+            ActiveCtrl.close()
         }
     }
 
@@ -67,7 +104,7 @@ Menu
         sequence: "Alt+Ctrl+W"
         onTriggered:
         {
-            console.log("关闭全部")
+            ActiveCtrl.closeAll()
         }
     }
 

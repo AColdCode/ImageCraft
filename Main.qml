@@ -28,13 +28,6 @@ ApplicationWindow
         width: parent.width
     }
 
-    DialogBox   //管理弹出对话框
-    {
-        id: dialogBox
-        objectName: "dialogBox"
-        sharePage: tag.sharePage
-    }
-
     //Content Area
     Row
     {
@@ -60,5 +53,11 @@ ApplicationWindow
         }
     }
 
-
+    DialogBox   //管理弹出对话框
+    {
+        id: dialogBox
+        objectName: "dialogBox"
+        sharePage: tag.sharePage
+        tabBar_currentIndex: tag.shareTab.currentIndex
+    }
 }

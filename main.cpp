@@ -1,7 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include "activectrl.h"
 #include "editor.h"
 #include "imageprovider.h"
 
@@ -9,11 +8,10 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    qmlRegisterSingletonInstance<ActiveCtrl>("com.activectrl",
-                                             1,
-                                             0,
-                                             "ActiveCtrl",
-                                             ActiveCtrl::singleton());
+    //设置组织和应用标识
+    QCoreApplication::setOrganizationName("cqnu");
+    QCoreApplication::setOrganizationDomain("cqnu.com");
+    QCoreApplication::setApplicationName("ImageCraft");
 
     QQmlApplicationEngine engine;
     QObject::connect(
@@ -25,7 +23,7 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("imageProvider", ImageProvider::instance());
     engine.addImageProvider(QLatin1String("editorimage"), ImageProvider::instance());
-    engine.loadFromModule("ImageLoader", "Main");
+    engine.loadFromModule("ImageCraft", "Main");
 
     return app.exec();
 }
