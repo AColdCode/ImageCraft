@@ -1,8 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import ImageLoader 1.0
-import com.activectrl 1.0
+import ImageCraft 1.0
 
 Item
 {
@@ -17,19 +16,36 @@ Item
     ListModel
     {
         id: pageModel
+
+        function addMelement(fileName, imageUrl)
+        {
+            append({pageName: fileName, pixUrl_yuan: imageUrl});
+        }
+
+        function removeElement(index,deletion)
+        {
+            remove(index,deletion)
+        }
+
+        onCountChanged: {
+            ActiveCtrl.PageCount = count
+        }
     }
 
-    TabBar {
+    TabBar
+    {
         id: tabBar
         width: parent.width
         height: 25
 
-        Repeater {
+        Repeater
+        {
             model: pageModel
             TabButton
             {
                 property bool isHoverd: tabBarHover.hovered
-                text:  pageName
+                property bool isModified: stackL.itemAt(index) ? stackL.itemAt(index).isModified : false
+                text:  isModified ? pageName + "*" : pageName
                 palette.buttonText: "black"
                 height: tabBar.height
                 width: 100 + cancel_btn.width * 2
@@ -126,19 +142,25 @@ Item
                     tabBar.currentIndex = index
                 }
             }
+        }
 
-
+        onCurrentIndexChanged: {
+            ActiveCtrl.currentIndex=currentIndex
         }
     }
 
     LCenter
     {
         id: stackL
+        anchors.top: tabBar.bottom
+        currentIndex: tabBar.currentIndex
+        sharePage: pageModel
+        height: parent.height - tabBar.height
+        width: parent.width
     }
 
-
-    // onCurrentEditorChanged:
-    // {
-    //     ActiveCtrl.currentEditor = currentEditor
-    // }
+    Component.onCompleted:
+    {
+        ActiveCtrl.sharePage = sharePage
+    }
 }
